@@ -80,7 +80,7 @@ class Store(OpenIDStore):
         # Has nonce expired?
         if abs(timestamp - time.time()) > openid.store.nonce.SKEW:
             return False
-        nonce, created = None.objects.get_or_create(
+        nonce, created = Nonce.objects.get_or_create(
             server_url = server_url,
             timestamp = timestamp,
             salt = salt,
