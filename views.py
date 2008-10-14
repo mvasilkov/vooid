@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 from openid.server.server import Server, ProtocolError, EncodingError
 try:
-  from openid.extensions import sreg
+    from openid.extensions import sreg
 except ImportError:
-  from openid import sreg
+    from openid import sreg
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
