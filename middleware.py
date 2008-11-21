@@ -6,7 +6,8 @@ import utils
 
 class YadisMiddleware:
   def process_request(self, request):
-      if 'application/xrds+xml' in request.META.get('HTTP_ACCEPT', ''):
+      if  utils.absolute_url(request.path) == utils.get_identity() and \
+          'application/xrds+xml' in request.META.get('HTTP_ACCEPT', ''):
           return views.yadis(request)
   
   def process_response(self, request, response):
