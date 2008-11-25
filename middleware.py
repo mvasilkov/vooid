@@ -9,8 +9,8 @@ class YadisMiddleware:
       if  utils.absolute_url(request.path) == utils.get_identity() and \
           'application/xrds+xml' in request.META.get('HTTP_ACCEPT', ''):
           return views.yadis(request)
-  
+
   def process_response(self, request, response):
-      if response.status_code >= 200 and response.status_code < 300:
+      if utils.absolute_url(request.path) == utils.get_identity():
           response['X-XRDS-Location'] = utils.absolute_url(reverse(views.yadis))
       return response
