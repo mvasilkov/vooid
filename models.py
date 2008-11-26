@@ -10,11 +10,11 @@ from django.db import models
 
 class TrustRoot(models.Model):
     url = models.URLField()
-  
+
     def __unicode__(self):
         return self.url
 
-# OpenID Store implementation derived mostly from Simon Willison's 
+# OpenID Store implementation derived mostly from Simon Willison's
 # django-openid: http://code.google.com/p/django-openid/
 
 class Nonce(models.Model):
@@ -47,7 +47,7 @@ class Store(OpenIDStore):
             assoc_type = association.assoc_type
         )
         assoc.save()
-    
+
     def getAssociation(self, server_url, handle=None):
         assocs = Association.objects.filter(server_url=server_url)
         if handle is not None:
@@ -67,7 +67,7 @@ class Store(OpenIDStore):
         if not associations:
             return None
         return associations[-1]
-    
+
     def removeAssociation(self, server_url, handle):
         assocs = Association.objects.filter(
             server_url = server_url, handle = handle
@@ -75,7 +75,7 @@ class Store(OpenIDStore):
         assocs_exist = len(assocs) > 0
         assocs.delete()
         return assocs_exist
-    
+
     def useNonce(self, server_url, timestamp, salt):
         # Has nonce expired?
         if abs(timestamp - time.time()) > openid.store.nonce.SKEW:
@@ -89,20 +89,20 @@ class Store(OpenIDStore):
             return True
         nonce.delete()
         return False
-    
+
     def cleanupNonce(self):
         Nonce.objects.filter(
             timestamp__lt = (int(time.time()) - nonce.SKEW)
         ).delete()
-    
+
     def cleaupAssociations(self):
         Association.objects.extra(
             where=['issued + lifetimeint < (%s)' % time.time()]
         ).delete()
-    
+
     def getAuthKey(self):
         # Use first AUTH_KEY_LEN characters of md5 hash of SECRET_KEY
         return hashlib.md5(settings.SECRET_KEY).hexdigest()[:self.AUTH_KEY_LEN]
-    
+
     def isDumb(self):
         return False

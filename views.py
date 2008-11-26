@@ -66,10 +66,10 @@ def endpoint(request):
         openid_request = server.decodeRequest(to_dict(request.REQUEST))
     except ProtocolError, e:
         return HttpBadRequestResponse(str(e))
-    
+
     if openid_request is None:
         return render_to_response('vooid/endpoint.html')
-    
+
     if openid_request.mode in ('checkid_immediate', 'checkid_setup'):
         return _check_id(request, server, openid_request)
     else:
