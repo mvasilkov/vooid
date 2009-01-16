@@ -4,7 +4,7 @@ import openid.store
 from openid.association import Association as OIDAssociation
 import time
 import base64
-import hashlib
+import md5
 
 from django.db import models
 
@@ -102,7 +102,7 @@ class Store(OpenIDStore):
 
     def getAuthKey(self):
         # Use first AUTH_KEY_LEN characters of md5 hash of SECRET_KEY
-        return hashlib.md5(settings.SECRET_KEY).hexdigest()[:self.AUTH_KEY_LEN]
+        return md5.md5(settings.SECRET_KEY).hexdigest()[:self.AUTH_KEY_LEN]
 
     def isDumb(self):
         return False
