@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.encoding import smart_str
 from django.conf import settings
 
@@ -60,6 +61,7 @@ def yadis(request):
         'identity': get_identity(),
     }, mimetype='application/xrds+xml')
 
+@csrf_exempt
 def endpoint(request):
     server = get_server()
     try:
@@ -75,6 +77,7 @@ def endpoint(request):
     else:
         return http_openid_response(server, server.handleRequest(openid_request))
 
+@csrf_exempt
 def confirm(request):
     server = get_server()
     openid_request = request.session['check_id_request']
