@@ -10,7 +10,7 @@ Vooid (Very Own OpenID server) — это OpenID-сервер для персо�
 
 Сервер требует наличия:
 
-- библиотеки [python-openid](http://openidenabled.com/python-openid/) версий 2.x.
+- библиотеки [python-openid](https://github.com/openid/python-openid) версии 2.x.
 - установленного приложения sites из contrib Джанго
 
 Установка:
@@ -89,4 +89,4 @@ Vooid (Very Own OpenID server) — это OpenID-сервер для персо�
 
 Автор: Иван Сагалаев (maniac@softwaremaniacs.org)
 
-Распространяется по лицензии New BSD (3-clause) (см. файл [LICENSE](https://github.com/mvasilkov/vooid/blob/master/LICENSE)).
+Распространяется по лицензии **New BSD (3-clause)** (см. файл [LICENSE](https://github.com/mvasilkov/vooid/blob/master/LICENSE)).
